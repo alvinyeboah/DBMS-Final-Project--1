@@ -22,9 +22,9 @@ export function HomePage() {
         className="relative flex flex-col gap-4 items-center justify-center px-4"
       >
         <div className="text-3xl md:text-7xl font-bold text-white text-center">
-          Welcome to Our Group&spos;s Database Project
+        Welcome to Our Group&apos;s Database Project
         </div>
-        <div className="font-extralight text-base md:text-4xl text-neutral-200 py-4">
+        <div className="font-extralight text-center text-base md:text-4xl text-neutral-200 py-4">
           And this, is our<FlipWords words={words} />system.
         </div>
         <Link href='/auth'>
