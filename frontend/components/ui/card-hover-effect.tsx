@@ -1,7 +1,27 @@
-import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "framer-motion";
+"use client"
+import React, { useState } from "react";
+import {
+  IconArrowLeft,
+  IconBrandTabler,
+  IconCertificate,
+  IconFileText,
+  IconMessageCircle,
+  IconUserBolt,
+  IconUserPlus,
+} from "@tabler/icons-react";
 import Link from "next/link";
-import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+
+const iconComponents: { [key: string]: React.ComponentType<any> } = {
+  IconArrowLeft,
+  IconBrandTabler,
+  IconCertificate,
+  IconFileText,
+  IconMessageCircle,
+  IconUserBolt,
+  IconUserPlus,
+};
 
 export const HoverEffect = ({
   items,
@@ -11,10 +31,11 @@ export const HoverEffect = ({
     title: string;
     description: string;
     link: string;
+    icon: string;
   }[];
   className?: string;
 }) => {
-  let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <div
@@ -23,37 +44,43 @@ export const HoverEffect = ({
         className
       )}
     >
-      {items.map((item, idx) => (
-        <Link
-          href={item?.link}
-          key={item?.link}
-          className="relative group  block p-2 h-full w-full"
-          onMouseEnter={() => setHoveredIndex(idx)}
-          onMouseLeave={() => setHoveredIndex(null)}
-        >
-          <AnimatePresence>
-            {hoveredIndex === idx && (
-              <motion.span
-                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
-                layoutId="hoverBackground"
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                  transition: { duration: 0.15 },
-                }}
-                exit={{
-                  opacity: 0,
-                  transition: { duration: 0.15, delay: 0.2 },
-                }}
-              />
-            )}
-          </AnimatePresence>
-          <Card>
-            <CardTitle>{item.title}</CardTitle>
-            <CardDescription>{item.description}</CardDescription>
-          </Card>
-        </Link>
-      ))}
+      {items.map((item, idx) => {
+        const IconComponent = iconComponents[item.icon];
+        return (
+          <Link
+            href={item?.link}
+            key={item?.link}
+            className="relative group  block p-2 h-full w-full"
+            onMouseEnter={() => setHoveredIndex(idx)}
+            onMouseLeave={() => setHoveredIndex(null)}
+          >
+            <AnimatePresence>
+              {hoveredIndex === idx && (
+                <motion.span
+                  className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
+                  layoutId="hoverBackground"
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: 1,
+                    transition: { duration: 0.15 },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    transition: { duration: 0.15, delay: 0.2 },
+                  }}
+                />
+              )}
+            </AnimatePresence>
+            <Card>
+              {IconComponent && (
+                <IconComponent className="h-6 w-6 mb-4 text-gray-500" />
+              )}
+              <CardTitle>{item.title}</CardTitle>
+              <CardDescription>{item.description}</CardDescription>
+            </Card>
+          </Link>
+        );
+      })}
     </div>
   );
 };
@@ -78,6 +105,7 @@ export const Card = ({
     </div>
   );
 };
+
 export const CardTitle = ({
   className,
   children,
@@ -91,6 +119,7 @@ export const CardTitle = ({
     </h4>
   );
 };
+
 export const CardDescription = ({
   className,
   children,

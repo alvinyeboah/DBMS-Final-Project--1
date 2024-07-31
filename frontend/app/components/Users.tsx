@@ -64,7 +64,7 @@ export function ExpandableCardDemo({ users, role, onUserSelect }: ExpandableCard
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, transition: { duration: 0.05 } }}
-              className="flex absolute top-2 right-2 lg:hidden items-center justify-center bg-white rounded-full h-6 w-6"
+              className="flex absolute top-2 right-2 lg:hidden items-center justify-center bg-black rounded-full h-6 w-6"
               onClick={() => setActive(null)}
             >
               <CloseIcon />
@@ -90,7 +90,7 @@ export function ExpandableCardDemo({ users, role, onUserSelect }: ExpandableCard
                   <div>
                     <motion.h3
                       layoutId={`title-${active.first_name}-${active.last_name}-${id}`}
-                      className="font-bold text-neutral-700 dark:text-neutral-200"
+                      className="font-bold text-neutral-200"
                     >
                       {active.first_name} {active.last_name}
                     </motion.h3>

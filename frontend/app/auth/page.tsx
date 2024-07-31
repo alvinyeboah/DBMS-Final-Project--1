@@ -1,11 +1,12 @@
-"use client"
-import React, { useState, useEffect } from 'react';
-import Navbar from './components/Navbar';
-import { BackgroundGradientAnimation } from '@/components/ui/background-gradient-animation';
-import { ExpandableCardDemo } from '../components/Users';
+"use client";
+import React, { useState, useEffect } from "react";
+import Navbar from "./components/Navbar";
+import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
+import { ExpandableCardDemo } from "../components/Users";
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 
 const AuthPage: React.FC = () => {
-  const [role, setRole] = useState<'student' | 'staff'>('student');
+  const [role, setRole] = useState<"student" | "staff">("student");
   const [users, setUsers] = useState<any[]>([]);
 
   useEffect(() => {
@@ -16,7 +17,7 @@ const AuthPage: React.FC = () => {
         const data = await response.json();
         setUsers(data);
       } catch (error) {
-        console.error('Error fetching users:', error);
+        console.error("Error fetching users:", error);
       }
     };
 
@@ -24,15 +25,32 @@ const AuthPage: React.FC = () => {
   }, [role]); // Refetch users when role changes
 
   const handleUserSelect = (userId: number) => {
-    window.location.href = role === 'student' ? `/student` : `/staff/`;
+    window.location.href = role === "student" ? `/student` : `/staff/`;
   };
+
+  const words = [
+    {
+      text: "Select",
+    },
+    {
+      text: "a",
+    },
+    {
+      text: "user",
+    },
+  ];
 
   return (
     <BackgroundGradientAnimation>
       <div className="absolute z-50 inset-0 text-white font-bold">
         <Navbar role={role} setRole={setRole} />
-        <main className="flex justify-center items-center min-h-screen p-4">
-          <ExpandableCardDemo users={users} role={role} onUserSelect={handleUserSelect} />
+        <main className="flex flex-col justify-center items-center min-h-screen p-4">
+          <TypewriterEffectSmooth words={words} />
+          <ExpandableCardDemo
+            users={users}
+            role={role}
+            onUserSelect={handleUserSelect}
+          />
         </main>
       </div>
     </BackgroundGradientAnimation>

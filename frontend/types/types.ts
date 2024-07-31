@@ -1,3 +1,4 @@
+import { IconType } from "react-icons";
 export interface Department {
     department_id: number;
     department_name: string;
@@ -27,6 +28,12 @@ export interface Staff {
     updated_at: Date;
 }
 
+interface HoverEffectItem {
+    title: string;
+    description: string;
+    link: string;
+    icon: IconType;
+  }
 export type User = Student | Staff; // Combined type for convenience
 
 export interface Course {
