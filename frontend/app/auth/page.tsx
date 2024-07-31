@@ -1,9 +1,8 @@
-"use client";
-
+"use client"
 import React, { useState, useEffect } from 'react';
-import UserSelect from '../components/UserSelect'; // Adjust the import path
 import Navbar from './components/Navbar';
 import { BackgroundGradientAnimation } from '@/components/ui/background-gradient-animation';
+import { ExpandableCardDemo } from '../components/Users';
 
 const AuthPage: React.FC = () => {
   const [role, setRole] = useState<'student' | 'staff'>('student');
@@ -30,10 +29,10 @@ const AuthPage: React.FC = () => {
 
   return (
     <BackgroundGradientAnimation>
-      <div className="absolute z-50 inset-0  text-white font-bold ">
+      <div className="absolute z-50 inset-0 text-white font-bold">
         <Navbar role={role} setRole={setRole} />
         <main className="flex justify-center items-center min-h-screen p-4">
-          <UserSelect users={users} role={role} onUserSelect={handleUserSelect} />
+          <ExpandableCardDemo users={users} role={role} onUserSelect={handleUserSelect} />
         </main>
       </div>
     </BackgroundGradientAnimation>

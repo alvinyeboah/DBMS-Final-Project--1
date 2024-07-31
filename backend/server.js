@@ -24,7 +24,6 @@ db.connect(err => {
   console.log('MySQL connected...');
 });
 
-// Express.js API endpoint to get users based on role
 app.get('/api/students', (req, res) => {
     const sql = 'SELECT student_id, first_name, last_name, email, date_of_birth FROM Students';
     db.query(sql, (err, result) => {
@@ -35,8 +34,7 @@ app.get('/api/students', (req, res) => {
     });
   });
   
-  // API to get staff
-  app.get('/api/staff', (req, res) => {
+  app.get('/api/staffs', (req, res) => {
     const sql = 'SELECT staff_id, first_name, last_name, email, date_of_birth FROM Staff';
     db.query(sql, (err, result) => {
       if (err) {

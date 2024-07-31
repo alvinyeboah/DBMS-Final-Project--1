@@ -15,14 +15,13 @@ interface UserSelectProps {
 }
 
 const UserSelect: React.FC<UserSelectProps> = ({ users, role, onUserSelect }) => {
-    console.log(users);
     
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Select a {role === 'student' ? 'Student' : 'Staff'}</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {users.map(user => (
-          <div
+          <div 
             key={user.id}
             className="bg-white border border-gray-200 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 p-4 cursor-pointer"
             onClick={() => onUserSelect(user.id)}
@@ -34,12 +33,12 @@ const UserSelect: React.FC<UserSelectProps> = ({ users, role, onUserSelect }) =>
             <div className="text-gray-600">Date of Birth: {user.date_of_birth}</div>
             <button
               onClick={(e) => {
-                e.stopPropagation(); // Prevents triggering the parent click event
+                e.stopPropagation(); 
                 onUserSelect(user.id);
               }}
               className="mt-4 w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300"
             >
-              Go to {role === 'student' ? 'Student' : 'Staff'} Page
+              Go to My Page
             </button>
           </div>
         ))}

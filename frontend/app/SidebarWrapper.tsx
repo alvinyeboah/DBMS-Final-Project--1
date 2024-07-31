@@ -1,17 +1,23 @@
-'use client'
+"use client";
 
 import { usePathname } from 'next/navigation';
-import { SidebarDemo } from './components/Sidebar';
+import { SidebarStudent } from './components/SidebarStudent';
+import { SidebarStaff } from './components/SidebarStaff';
 
 export default function SidebarWrapper() {
   const pathname = usePathname();
-  const showSidebar = pathname === '/student' || pathname === '/staff';
+  
+  // Check if the pathname starts with `/student` or `/staff`
+  const isStudentPage = pathname.startsWith('/student');
+  const isStaffPage = pathname.startsWith('/staff');
 
-  if (!showSidebar) return null;
+  // Only show sidebar if on the appropriate pages
+  if (!isStudentPage && !isStaffPage) return null;
 
   return (
-    <aside className="w-64 text-white h-screen">
-      <SidebarDemo />
+    <aside className="w-auto text-white h-screen">
+      {isStudentPage && <SidebarStudent />}
+      {isStaffPage && <SidebarStaff />}
     </aside>
   );
 }

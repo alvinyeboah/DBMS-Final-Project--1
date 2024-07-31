@@ -28,7 +28,7 @@ export function HomePage() {
           And this, is our<FlipWords words={words} />system.
         </div>
         <Link href='/auth'>
-          <Button className="w-[9rem] h-[3rem] px4 py-2 rounded-sm bg-white text-black hover:text-white">Select your user</Button>
+          <Button className="w-[9rem] h-[3rem] px-4 py-2 rounded-lg bg-gradient-to-l  text-black hover:text-white hover:bg-gradient-to-r from-blue-600 transition-all duration-1000 to-purple-500 hover:shadow-md">Select your user</Button>
         </Link>
       </motion.div>
     </WavyBackground>
