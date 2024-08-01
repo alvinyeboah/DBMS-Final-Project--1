@@ -281,6 +281,30 @@ app.post('/api/submissions', (req, res) => {
   });
 });
 
+// POST endpoint for adding a new student
+app.post('/api/students', (req, res) => {
+  const { first_name, last_name, email, password, date_of_birth } = req.body;
+  const sql = 'INSERT INTO Students (first_name, last_name, email, password, date_of_birth, created_at, updated_at) VALUES (?, ?, ?, ?, ?, NOW(), NOW())';
+  db.query(sql, [first_name, last_name, email, password, date_of_birth], (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json({ success: true, student_id: result.insertId });
+  });
+});
+
+// DELETE endpoint for deleting a student by ID
+app.delete('/api/students/:id', (req, res) => {
+  const studentId = req.params.id;
+  const sql = 'DELETE FROM Students WHERE student_id = 1';
+  db.query(sql, [studentId], (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json({ success: true });
+  });
+});
+
 
 // POST endpoint for adding a new enrollment
 app.post('/api/enrollments', (req, res) => {

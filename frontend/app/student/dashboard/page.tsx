@@ -1,6 +1,7 @@
 import React from "react";
 import { Cards } from "./components/Cards";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
+import StudentManager from "./components/StudentAdder";
 
 type Props = {};
 
@@ -30,7 +31,7 @@ const words = [
 ];
 function page({}: Props) {
   return (
-    <div>
+    <div className="flex flex-col h-auto">
       <TypewriterEffectSmooth words={words} />
       <Cards />
     </div>

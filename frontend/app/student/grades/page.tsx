@@ -45,7 +45,7 @@ export default function Grades() {
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-semibold mb-6 text-white">Grades</h1>
+      <h1 className="text-3xl font-semibold mb-6 text-white4">Grades</h1>
       {grades.length === 0 ? (
         <p className="text-center text-gray-600">No grades available.</p>
       ) : (
