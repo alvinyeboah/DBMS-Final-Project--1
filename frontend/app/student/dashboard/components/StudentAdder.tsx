@@ -18,7 +18,6 @@ export default function StudentManager() {
     password: '',
     date_of_birth: ''
   });
-  const [deleteId, setDeleteId] = useState<number | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
   const fetchStudents = async () => {
@@ -50,17 +49,22 @@ export default function StudentManager() {
     }
   };
 
-  const deleteStudent = async () => {
-    if (deleteId === null) return;
+  const deleteStudent = async (studentId: number) => {
     try {
-      const response = await fetch(`http://localhost:5001/api/students/${deleteId}`, {
+      const response = await fetch(`http://localhost:5001/api/students/${studentId}`, {
         method: 'DELETE',
       });
       if (response.ok) {
-        setMessage('Student deleted successfully!');
-        fetchStudents();
+        const data = await response.json();
+        if (data.success) {
+          setMessage('Student deleted successfully!');
+          fetchStudents(); // Refresh the student list
+        } else {
+          setMessage('Error deleting student.');
+        }
       } else {
-        setMessage('Error deleting student.');
+        const errorText = await response.text();
+        setMessage(`Error deleting student: ${errorText}`);
       }
     } catch (error) {
       console.error('Error deleting student:', error);
@@ -122,30 +126,19 @@ export default function StudentManager() {
         </button>
       </div>
 
-      <div>
-        <h2 className="text-xl font-semibold mb-4">Delete Student</h2>
-        <input
-          type="number"
-          placeholder="Student ID"
-          value={deleteId || ''}
-          onChange={(e) => setDeleteId(Number(e.target.value))}
-          className="border p-2 mb-2 w-full"
-        />
-        <button
-          onClick={deleteStudent}
-          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-        >
-          Delete Student
-        </button>
-      </div>
-
       <h2 className="text-xl font-semibold mt-8 mb-4">All Students</h2>
       <div className="bg-white p-4 shadow rounded-lg">
         {students.length > 0 ? (
           <ul>
             {students.map((student) => (
-              <li key={student.student_id} className="mb-2">
+              <li key={student.student_id} className="mb-2 flex items-center justify-between">
                 {student.first_name} {student.last_name} - {student.email}
+                <button
+                  onClick={() => deleteStudent(student.student_id)}
+                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                >
+                  Delete
+                </button>
               </li>
             ))}
           </ul>

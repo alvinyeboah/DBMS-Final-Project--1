@@ -294,9 +294,10 @@ app.post('/api/students', (req, res) => {
 });
 
 // DELETE endpoint for deleting a student by ID
+// DELETE endpoint for deleting a student
 app.delete('/api/students/:id', (req, res) => {
   const studentId = req.params.id;
-  const sql = 'DELETE FROM Students WHERE student_id = 1';
+  const sql = 'DELETE FROM Students WHERE student_id = ?';
   db.query(sql, [studentId], (err, result) => {
     if (err) {
       return res.status(500).json({ error: err.message });
@@ -304,7 +305,6 @@ app.delete('/api/students/:id', (req, res) => {
     res.json({ success: true });
   });
 });
-
 
 // POST endpoint for adding a new enrollment
 app.post('/api/enrollments', (req, res) => {
